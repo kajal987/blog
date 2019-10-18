@@ -2,13 +2,13 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'role', 'image'
     ];
 
     /**
@@ -38,11 +38,6 @@ class User extends Authenticatable
         'role' => 'integer'
     ];
 
-    public function isAdmin(): bool
-    {
-        return $this->role === 1;
-    }
-
     public function isUser(): bool
     {
         return $this->role === 0;
@@ -51,10 +46,14 @@ class User extends Authenticatable
     public function getLoginRediorectPath()
     {
         if ($this->isAdmin()) {
-            return '/home';
+            return '/admin/dashboard';
         }
+        return '/user/dashboard';
+    }
 
-        return '/';
+    public function isAdmin(): bool
+    {
+        return $this->role === 1;
     }
 
 }

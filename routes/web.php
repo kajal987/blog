@@ -12,9 +12,9 @@
 */
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 Auth::routes();
 
@@ -28,16 +28,67 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/users', 'AdminController@showuser')->name('showuser');
 
-Route::get('/admin/getDetails', 'AdminController@getDetails')->name('getDetails');
+Route::get('/admin/dashboard', 'HomeController@index')->name('home');
 
-Route::get('/post/create', 'PostController@create')->name('post.create');
+Route::namespace('Backend')->group(function () {
 
-Route::post('/post/store', 'PostController@store')->name('post.store');
+    Route::get('/', 'PostController@index')->name('posts');
 
-Route::get('/posts', 'PostController@index')->name('posts');
+//    Route::get('/', function () {
+//        return view('welcome');
+//    });
 
-Route::get('/post/show/{id}', 'PostController@show')->name('post.show');
+    Route::get('/admin/showusers', 'AdminController@showuser')->name('users');
+
+    Route::get('/admin/getDetails', 'AdminController@getDetails')->name('getuserDetails');
+
+    Route::POST('/admin/create', 'AdminController@create')->name('insertuser');
+
+    Route::POST('/admin/update', 'AdminController@update')->name('update');
+
+    Route::get('/admin/test', 'AdminController@test')->name('test');
+
+    Route::get('/admin/delete_user', 'AdminController@delete_user')->name('delete_user');
+
+    Route::get('/post/create', 'PostController@create')->name('post.create');
+
+    Route::post('/post/store', 'PostController@store')->name('post.store');
+
+    // Route::get('/posts', 'PostController@index')->name('posts');
+
+    Route::get('/post/show/{id}', 'PostController@show')->name('post.show');
+
+    Route::get('/admin/delete_user', 'AdminController@delete_user')->name('delete_user');
+
+    Route::get('/posts', 'PostController@index')->name('posts');
+
+    Route::post('/post/store', 'PostController@store')->name('post.store');
+
+    Route::get('/post/show/{id}', 'PostController@show')->name('post.show');
+
+});
+
+
+Route::namespace('Frontend')->group(function () {
+
+    Route::get('/user/dashboard', 'UserController@index')->name('home');
+
+    Route::get('/user/profile', 'UserController@profile')->name('profile');
+
+    Route::POST('/user/updateprofile', 'UserController@updateprofile')->name('updateprofile');
+
+
+});
+
+
+Route::post('/comment/store', 'CommentController@store')->name('comment.store');
+
+Route::post('/reply/store', 'CommentController@replyStore')->name('reply.add');
+
+Route::get('/userdashboard', 'AdminController@userdashboard')->name('userdashboard');
+
+Route::get('/userpost', 'PostController@userpost')->name('userpost');
+
 
 

@@ -6,16 +6,25 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">Create Post</div>
-                    <div class="card-body">
-                        <form method="post" action="{{ route('post.store') }}">
+                    <div class="card-body" style="margin-top: 16px;">
+                        <form method="post" action="{{ route('post.store') }}" enctype="multipart/form-data">
                             <div class="form-group">
                                 @csrf
-                                <label class="label">Post Title: </label>
+                                <label>Post Title: </label>
                                 <input type="text" name="title" class="form-control" required/>
                             </div>
                             <div class="form-group">
-                                <label class="label">Post Body: </label>
+                                <label >Post Body: </label>
                                 <textarea name="body" rows="10" cols="30" class="form-control" required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Image</label>
+                                <input type='file' id="imgInp" name="files" class="pagefile form-control"
+                                           style="height: 10%"/>
+                                    <input type="hidden" id="imagetool64" name="imagetool64"/>
+                                    <div id="img_id" style="height: 10%"></div>
+
                             </div>
 
                             <div class="form-group">

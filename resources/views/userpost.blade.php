@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.userapp')
 
 @section('content')
     <div class="container">
@@ -10,7 +10,7 @@
                     <th>ID</th>
                     <th>Title</th>
                     <th>Description</th>
-                   <!-- <th>Action</th> -->
+                    <!-- <th>Action</th> -->
                     </thead>
                     <tbody>
                     @foreach($posts as $post)
@@ -18,9 +18,10 @@
                             <td>{{ $post->id }}</td>
                             <td>{{ $post->title }}</td>
                             <td>{{ $post->body }}</td>
-                           <!-- <td>
+                            <td>
+
                                 <a href="{{ route('post.show', $post->id) }}" class="btn btn-primary" >Show Post</a>
-                            </td> -->
+                                                        </td>
 
                         </tr>
                     @endforeach
